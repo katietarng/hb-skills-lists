@@ -177,10 +177,10 @@ def smallest_int(number_list):
         return None 
 
     index = 0
-    
-    # while index != len(number_list)-1: 
-    #     if number_list[index] < number_list[index+1]:
-    #         number_list[index]
+        
+    for i in range(len(number_list)):
+        number = number_list[i]
+        i = i+1 
 
 
 def largest_int(number_list):
@@ -266,14 +266,12 @@ def sum_numbers(number_list):
         sum_num = 0
         return sum_num 
 
-    #Iterate through indices, increasing by 1 each time 
-    index = 0
-    for num in number_list:
-        new_index = index + 1
-        if new_index != len(number_list)-1: 
-            sum_num = number_list[index] + number_list[new_index]
-            return sum_num 
+    sum_num = number_list[0]
+    number_list = number_list[1:] 
 
+    for num in number_list:
+        sum_num += num 
+    return sum_num 
 
 
 def mult_numbers(number_list):
@@ -295,7 +293,16 @@ def mult_numbers(number_list):
 
     """
 
-    return None
+    if number_list == []:
+        product = 1
+        return product 
+
+    product = number_list[0]
+    number_list = number_list[1:]
+
+    for num in number_list:
+        product *= num
+    return product 
 
 
 def join_strings(word_list):
@@ -313,9 +320,15 @@ def join_strings(word_list):
         ''
 
     """
+    if word_list == []:
+        return ''
 
-    return "Not the right thing"
+    new_word = word_list[0]
+    word_list = word_list[1:]
 
+    for word in word_list: 
+        new_word += word
+    return new_word
 
 def average(number_list):
     """Return the average (mean) of the list of numbers given.
@@ -327,7 +340,14 @@ def average(number_list):
     this raises an error when given an empty list.
     """
 
-    return 0
+    sum_num = float(number_list[0])
+    length = len(number_list)
+    number_list = number_list[1:]
+
+    for num in number_list: 
+        sum_num += num  
+        avg_num = sum_num/length
+    return avg_num
 
 
 def join_strings_with_comma(list_of_words):
@@ -344,7 +364,12 @@ def join_strings_with_comma(list_of_words):
 
     """
 
-    return ""
+    new_word = list_of_words[0]
+    list_of_words = list_of_words[1:]
+
+    for word in list_of_words: 
+        new_word += ", {}".format(word)
+    return new_word 
 
 
 def foods_in_common(foods1, foods2):
@@ -364,8 +389,18 @@ def foods_in_common(foods1, foods2):
 
     """
 
-    return set(['the wrong thing'])
+    #Want to traverse through list of foods and match any foods together
+    common_food = set([])
+    no_common_food = set([])
 
+    for food in foods1:
+        if foods1[index] == foods2[index]:
+            common_food.add(food)
+        else: 
+            return no_common_food
+     
+    return common_food
+            
 
 def reverse_list(my_list):
     """Return the inputted list, reversed.
@@ -379,8 +414,15 @@ def reverse_list(my_list):
         ['I', 'love', 'cookies']
 
     """
+    new_list = []
+    index = 0
 
-    return []
+    for item in my_list: 
+        index = index-1
+        new_item = my_list[index]
+        new_list.append(new_item)
+
+    return new_list
 
 
 def reverse_list_in_place(my_list):
@@ -395,11 +437,16 @@ def reverse_list_in_place(my_list):
 
         >>> reverse_list(["cookies", "love", "I"])
         ['I', 'love', 'cookies']
-
-
     """
+    
+    index = 0 
 
-    return []
+    for item in my_list: 
+        new_item = my_list[index]
+        new_item = my_list[index-1]
+        index = index+1
+
+    return my_list
 
 
 def duplicates(my_list):
@@ -416,7 +463,16 @@ def duplicates(my_list):
 
     """
 
-    return []
+    duplicate_list = []
+
+    for item in my_list: #To prevent repeat items in new list 
+        if item in duplicate_list: 
+            pass 
+        elif my_list.count(item) > 1: 
+            duplicate_list.append(item)
+            duplicate_list.sort()
+        
+    return duplicate_list 
 
 
 def find_letter_indices(list_of_words, letter):
@@ -436,7 +492,20 @@ def find_letter_indices(list_of_words, letter):
 
     """
 
-    return []
+    occurance_list = []
+    list_index = 0
+    letter_index = 0
+
+    for words in list_of_words:
+        if letter == list_of_words[list_index][letter_index]:
+            occurance_list.append(letter_index)
+            list_index += 1
+        elif letter != list_of_words[list_index][letter_index]:
+            index = None
+            occurance_list.append(index)
+        letter_index += 1
+
+    return occurance_list
 
 def largest_n_items(input_list, n):
     """Given a list of integers along with an integer n, return a 
@@ -451,8 +520,9 @@ def largest_n_items(input_list, n):
 
     """
 
-    return []
+    new_list = []
 
+    return []
 
 ##############################################################################
 # END OF ASSIGNMENT: You can ignore everything below.
@@ -463,3 +533,4 @@ if __name__ == "__main__":
     if not result.failed:
         print "ALL TESTS PASSED. GOOD WORK!"
     print
+
