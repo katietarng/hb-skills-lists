@@ -176,11 +176,14 @@ def smallest_int(number_list):
     if number_list == []:
         return None 
 
-    index = 0
-        
-    for i in range(len(number_list)):
-        number = number_list[i]
-        i = i+1 
+    min_number = number_list[0]
+    number_list = number_list[1:]
+
+    #If number in the list is smaller than the first element, make num the new min
+    for num in number_list:
+        if num < min_number: 
+            min_number = num
+    return min_number
 
 
 def largest_int(number_list):
@@ -201,8 +204,16 @@ def largest_int(number_list):
 
     """
 
-    return 0
+    if number_list == []:
+        return None 
 
+    max_number = number_list[0]
+    number_list = number_list[1:]
+
+    for num in number_list:
+        if num > max_number:
+            max_number = num
+    return max_number
 
 def halvesies(number_list):
     """Return list of numbers from input list, each divided by two.
@@ -391,16 +402,18 @@ def foods_in_common(foods1, foods2):
 
     #Want to traverse through list of foods and match any foods together
     common_food = set([])
-    no_common_food = set([])
 
-    for food in foods1:
-        if foods1[index] == foods2[index]:
-            common_food.add(food)
-        else: 
-            return no_common_food
-     
+    total_food = foods1 + foods2 #Combine lists to create one large list 
+
+    for food in total_food:
+        if food in common_food:
+            pass
+        #If food appears more than once in joint list, food was in both lists
+        elif total_food.count(food) > 1:
+          common_food.add(food)
+
     return common_food
-            
+
 
 def reverse_list(my_list):
     """Return the inputted list, reversed.
@@ -440,14 +453,19 @@ def reverse_list_in_place(my_list):
     """
     
     index = 0 
+    reverse_index = -1
 
     for item in my_list: 
-        new_item = my_list[index]
-        new_item = my_list[index-1]
+        my_list[index] = my_list[reverse_index] 
         index = index+1
+        reverse_index = reverse_index-1
 
     return my_list
 
+    #Was not able to get this error fixed but my thought process is below
+    # 1. To start, set item at index 0 equal to last item of list
+    # 2. Increase index by 1 to rebind the next item 
+    # 3. Decrease reverse index by 1 to bind next item of list to my_list[index]
 
 def duplicates(my_list):
     """
@@ -522,7 +540,21 @@ def largest_n_items(input_list, n):
 
     new_list = []
 
-    return []
+    max_number = input_list[0]
+    input_list = input_list[1:]
+
+    #If length of new list does not equal n, keep running loop until len(new_list) = n
+    for num in input_list:
+        if len(new_list) != n: 
+            if num > max_number:  
+                max_number = num  
+                new_list.append(max_number)
+
+    return new_list
+    #Output continues to give maximum number only 
+
+
+#Did not pass reverse_list_in_place, largest_n_items
 
 ##############################################################################
 # END OF ASSIGNMENT: You can ignore everything below.
